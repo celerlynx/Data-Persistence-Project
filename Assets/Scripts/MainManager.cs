@@ -72,5 +72,22 @@ public class MainManager : MonoBehaviour
     {
         m_GameOver = true;
         GameOverText.SetActive(true);
+
+        if (DataManager.Instance != null)
+        {
+            if (m_Points > DataManager.Instance.currentScore)
+            {
+                DataManager.Instance.currentScore = m_Points;
+                DataManager.Instance.UpdateCurrentPlayer();
+            }
+
+            if (m_Points == DataManager.Instance.bestScore)
+            {
+                GameObject canvas = GameObject.Find("Canvas");
+                if (canvas != null)
+                    canvas.GetComponent<MenuUI>().UpdateBestScoreText();
+            }
+        }
+
     }
 }

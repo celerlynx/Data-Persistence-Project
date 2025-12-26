@@ -73,11 +73,6 @@ public class DataManager : MonoBehaviour
                     if (!string.IsNullOrEmpty(data.lastPlayer))
                     {
                         currentPlayerName = data.lastPlayer;
-                       /* Player foundCurPlayer = _playerList.FirstOrDefault(p => p.name == currentPlayerName);
-                        if (foundCurPlayer != null) 
-                        {
-                            currentScore = foundCurPlayer.score;
-                        }*/
                     }
 
                 }
@@ -92,20 +87,32 @@ public class DataManager : MonoBehaviour
         if (_playerList != null && !string.IsNullOrEmpty(currentPlayerName))
         {
             Player foundCurPlayer = _playerList.FirstOrDefault(p => p.name == currentPlayerName);
-            if (foundCurPlayer != null)
-                currentScore = foundCurPlayer.score;
-                
+            currentScore = (foundCurPlayer != null)? foundCurPlayer.score : 0;
         }
         if (!string.IsNullOrEmpty(currentPlayerName))
             SavePlayerData();
 
     }
 
+    public void UpdateCurrentPlayer()
+    {
+        if (!string.IsNullOrEmpty(currentPlayerName))
+        {
+            if (currentScore > bestScore)
+            {
+                bestScore = currentScore;
+                bestPlayerName = currentPlayerName;
+            }
+
+            SavePlayerData();
+        }
+    }
+
     private void SavePlayerData()
     {
         if (_playerList == null)
         {
-            Debug.Log("New List");
+            //Create new Player List
             _playerList = new List<Player>
             {
                 new Player { name = currentPlayerName, score = currentScore }
@@ -113,20 +120,20 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Existing List");
+            //Existing Player List
             int foundId = _playerList.FindIndex(p => p.name == currentPlayerName);
             if (foundId == -1)
             {
-                Debug.Log("New player");
+                //Add new player
                 _playerList.Add(new Player { name = currentPlayerName, score = currentScore });
             }
             else
             {
-                Debug.Log("Existing player " + foundId);
+                //Update existing player 
                 _playerList[foundId].score = currentScore;
             }
         }
-        Debug.Log("List count " + _playerList.Count);
+
         //Sort player list by score (max to min)
         if (_playerList.Count > 1)
         {
@@ -138,8 +145,9 @@ public class DataManager : MonoBehaviour
         data.lastPlayer = currentPlayerName;
 
         string json = JsonUtility.ToJson(data);
-        Debug.Log(_pathToDB + "  " +json);
         File.WriteAllText(_pathToDB, json);
+
+        Debug.Log(_pathToDB + "  " + json);
     }
 
 
