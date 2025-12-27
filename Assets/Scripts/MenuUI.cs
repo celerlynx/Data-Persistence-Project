@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 #if UNITY_EDITOR
 using UnityEditor;
@@ -12,6 +13,8 @@ public class MenuUI : MonoBehaviour
     public TMP_InputField playerNameField;
     //public TextMeshProUGUI errorMessageText;
     public TextMeshProUGUI bestScoreText;
+    public Button startButton;
+    public Button statisticsButton;
 
     public void EnterPlayerName()
     {
@@ -21,11 +24,13 @@ public class MenuUI : MonoBehaviour
         {
             TextMeshProUGUI placeholderText = (TextMeshProUGUI)playerNameField.placeholder;
             placeholderText.text = "Name cannot be empty!";
+            startButton.interactable = false;
             if (DataManager.Instance != null)
                 DataManager.Instance.currentPlayerName = "";
         }
         else 
         {
+            startButton.interactable = true;
             //add player name to Data Manager
             if (DataManager.Instance != null)
                 DataManager.Instance.currentPlayerName = name;
@@ -49,12 +54,19 @@ public class MenuUI : MonoBehaviour
 
     public void UpdateBestScoreText()
     {
-        if (DataManager.Instance != null)
+        if (DataManager.Instance != null && bestScoreText != null)
         {
             bestScoreText.text = "Best Score" +
                 (!string.IsNullOrEmpty(DataManager.Instance.bestPlayerName) ? " : " + DataManager.Instance.bestPlayerName : "") +
                 " : " + DataManager.Instance.bestScore;
         }
+    }
+
+
+    //Statistics button click
+    public void StatisticsPage()
+    {
+        SceneManager.LoadScene(2);
     }
 
 

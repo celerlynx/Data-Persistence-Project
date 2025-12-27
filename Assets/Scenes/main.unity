@@ -132,7 +132,7 @@ GameObject:
   - component: {fileID: 6748456}
   - component: {fileID: 6748455}
   m_Layer: 5
-  m_Name: Button
+  m_Name: BackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1962,6 +1962,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MenuUI
   playerNameField: {fileID: 0}
   bestScoreText: {fileID: 1949938046}
+  startButton: {fileID: 0}
+  statisticsButton: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
