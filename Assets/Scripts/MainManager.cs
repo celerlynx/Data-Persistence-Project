@@ -17,8 +17,9 @@ public class MainManager : MonoBehaviour
     private int m_Points;
     
     private bool m_GameOver = false;
+    private bool m_isWin = false;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -71,6 +72,10 @@ public class MainManager : MonoBehaviour
     public void GameOver()
     {
         m_GameOver = true;
+        if (m_isWin)
+        {
+            GameOverText.GetComponent<Text>().text = "YOU WON!\nPress Space to Restart";
+        }
         GameOverText.SetActive(true);
 
         if (DataManager.Instance != null)

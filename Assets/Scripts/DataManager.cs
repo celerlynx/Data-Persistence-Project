@@ -56,7 +56,7 @@ public class DataManager : MonoBehaviour
             LoadPlayerData();
     }
 
-    public void LoadPlayerData()
+    private void LoadPlayerData()
     {
         if (File.Exists(_pathToDB))
         {
@@ -80,6 +80,11 @@ public class DataManager : MonoBehaviour
             }
             
         }
+    }
+
+    public List<Player> GetPlayerList()
+    { 
+        return _playerList;
     }
 
     public void SetCurrentPlayer()
@@ -147,7 +152,7 @@ public class DataManager : MonoBehaviour
         string json = JsonUtility.ToJson(data);
         File.WriteAllText(_pathToDB, json);
 
-        Debug.Log(_pathToDB + "  " + json);
+        //Debug.Log(_pathToDB + "  " + json);
     }
 
 

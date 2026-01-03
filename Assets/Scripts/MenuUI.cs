@@ -47,6 +47,9 @@ public class MenuUI : MonoBehaviour
 
             playerNameField.onEndEdit.AddListener(delegate { EnterPlayerName(); });
             playerNameField.ActivateInputField();
+
+            if (string.IsNullOrEmpty(DataManager.Instance.bestPlayerName))
+                statisticsButton.interactable = false;
         }
 
         UpdateBestScoreText();
