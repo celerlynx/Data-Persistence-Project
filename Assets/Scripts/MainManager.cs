@@ -95,7 +95,7 @@ public class MainManager : MonoBehaviour
                 DataManager.Instance.UpdateCurrentPlayer();
             }
 
-            if (m_Points == DataManager.Instance.bestScore)
+            if (m_Points >= DataManager.Instance.bestScore)
             {
                 GameObject canvas = GameObject.Find("Canvas");
                 if (canvas != null)

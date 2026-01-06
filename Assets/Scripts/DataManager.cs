@@ -103,7 +103,7 @@ public class DataManager : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(currentPlayerName))
         {
-            if (currentScore > bestScore)
+            if (currentScore >= bestScore)
             {
                 bestScore = currentScore;
                 bestPlayerName = currentPlayerName;
